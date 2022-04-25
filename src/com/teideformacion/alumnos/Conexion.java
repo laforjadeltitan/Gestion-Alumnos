@@ -11,7 +11,6 @@ public class Conexion {
 	public Conexion() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			
 			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/gestion", "root", "");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -76,6 +75,7 @@ public class Conexion {
 	
 	public int eliminarAlumno(int clave){
 		int x = 0;
+		
 		String sql = "DELETE FROM ALUMNOS WHERE CLAVE=?;";
 		try {
 			state = con.prepareStatement(sql);
@@ -90,6 +90,7 @@ public class Conexion {
 	
 	public ArrayList<Alumnos> alumnosMayoresEdad(){
 		ArrayList<Alumnos> listaalumnosmayoresedad = new ArrayList<Alumnos>();
+		
 		String sql = "SELECT * FROM ALUMNOS WHERE EDAD>=18;";
 		
 		try {
@@ -144,26 +145,27 @@ public class Conexion {
 	}
 	
 	public int actualizarAlumno(Alumnos a) {
+		int x = 0;
 		
-		String sql = "SELECT CLAVE FROM ALUMNOS WHERE CLAVE=?";
+		String sql = "UPDATE ALUMNOS SET CLAVE=?, NOMBRE=?, APELLIDOS=?, EDAD=?, CALLE=?, NUMERO=?, LOCALIDAD=? WHERE CLAVE=?;";
 		
 		try {
 			state = con.prepareStatement(sql);
 			state.setString(1, a.getClave());
+			state.setString(2, a.getNombre());
+			state.setString(3, a.getApellidos());
+			state.setInt(4, a.getEdad());
+			state.setString(5, a.getCalle());
+			state.setInt(6, a.getNumero());
+			state.setString(7, a.getLocalidad());
+			state.setString(8, a.getClave());
 			
-			result = state.executeQuery();
-			
-			if (result.next()) {
-				
-			} else {
-
-			}
-			
+			x = state.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		return x;
 	}
 	
 }
