@@ -49,17 +49,25 @@ public class Ejecutable {
 				
 				Alumnos alumno = new Alumnos(clavealta, nombre, apellidos, edad, calle, numero, localidad1);
 				
-				con.insertarAlumnos(alumno);
+				if (con.insertarAlumnos(alumno)==1) {
+					System.out.println("Alumno añadido correctamente");
+				}else {
+					System.out.println("Error, no se ha añadido el alumno");
+				}
 				break;
 			case 2:
 				System.out.println("Clave");
 				int clavebaja = sc.nextInt();
-				con.eliminarAlumno(clavebaja);
+				
+				if (con.eliminarAlumno(clavebaja)==1) {
+					System.out.println("Alumno eliminado correctamente");
+				} else {
+					System.out.println("Error, no se ha eliminado el alumno");
+				}
 				break;
 			case 3:
-				// Al invocar la funcion retorna un valor, ese valor debemos guardarlo en una variable del mismo tipo de dato
-				// Ejemplo (esto retorna un entero dependiendo de si se insertó la fila o no, entonces sería un 0): int result_insert = con.insertar(new Departamentos(n_d, nombre, localidad));
-				//Arreglar cada consulta
+				// Al llamar la funcion retorna un valor, ese valor deberíamos guardarlo en una variable del mismo tipo de dato
+				// Ejemplo (esto retorna un entero dependiendo de si se insertó la fila o no, entonces sería un 0): int result_insert = con.insertar(new Departamentos(n, nombre, localidad));
 				System.out.println("Clave");
 				String claveactualizar = sc.next();
 				
@@ -83,7 +91,11 @@ public class Ejecutable {
 				
 				Alumnos alumnoactualizar = new Alumnos(claveactualizar, nombreactualizar, apellidosactualizar, edadactualizar, calleactualizar, numeroactualizar, localidadactualizar);
 				
-				// Realizar sentencia if, problema con return
+				if (con.actualizarAlumno(alumnoactualizar)==1) {
+					System.out.println("Alumno actualizado correctamente");
+				} else {
+					System.out.println("Error, no se ha actualizado el alumno");
+				}
 				break;
 			case 4:
 				ArrayList<Alumnos> listaalumnos = con.consultarAlumnos();
